@@ -8,31 +8,29 @@ namespace Demo_Divisores
     {
         static void Main(string[] args)
         {
-            //long num = 19_876_543_937L;
-            long num = 18;
+            long num = 19_876_543_937L;
             int threads = 2;
-            Stopwatch mainTime = new Stopwatch();//obj to take the time no concurrent
-            Stopwatch concurretTime = new Stopwatch();//obj to take the time concurrent
-            /*long start = 0;
-            long end = num / threads;
-            Thread[] trs = new Thread[threads];*/
 
             Console.WriteLine("Number: " + num);
             Console.WriteLine("[Main process]");
+            Stopwatch mainTime = new Stopwatch();//obj to take the time no concurrent
             mainTime.Start();
-            Divisor divisor = new Divisor(num, 2, num / 2);
-            divisor.getDivisorsPost();
+            Divisor divisor = new Divisor(num);
+            divisor.numOfPosDivisors(num);
             Console.WriteLine("divs: " + divisor.getDivisores());
+            Console.WriteLine("Is Prime: " + divisor.isPrime());
             mainTime.Stop();
-            Console.WriteLine($"Time: {mainTime.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"Time: {mainTime.Elapsed.TotalSeconds} s");
 
             Console.WriteLine("[Concurrent process] Threads: {0}", threads);
+            Stopwatch concurretTime = new Stopwatch();//obj to take the time concurrent
             concurretTime.Start();
             DivisorConc divisorConc = new DivisorConc(num, threads);
-            divisorConc.isPrimeConc();
-            Console.WriteLine("divs: " + divisor.getDivisores());
+            divisorConc.startProccesConcurrent();
+            Console.WriteLine("divs: " + divisorConc.getDivisores());
+            Console.WriteLine("Is Prime: " + divisorConc.isPrime());
             concurretTime.Stop();
-            Console.WriteLine($"Time: {concurretTime.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"Time: {concurretTime.Elapsed.TotalSeconds} s");
         }
     }
 }

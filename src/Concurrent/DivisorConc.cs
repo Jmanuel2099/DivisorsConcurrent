@@ -5,36 +5,83 @@ public class DivisorConc
 {
     long numero;
     int threads;
-    Thread [] trs;
+    Thread[] trs;
+    int divisors;
 
-    public DivisorConc( long numero, int threads){
-        this.numero = numero / 2;
+    long[,] listdates;
+
+
+
+    public DivisorConc(long numero, int threads)
+    {
+        this.numero = numero;
         this.threads = threads;
-        this.trs =  new Thread[threads];
+        this.trs = new Thread[threads];
+        listdates = new long[threads, 2];
+        divisors = 2;
     }
 
-    public void isPrimeConc()
+    public void startProccesConcurrent()
     {
+        long numReal = this.numero /2;
         long start = 2;
-        long end = this.numero / this.threads;
-        //Thread[] trs = new Thread[this.threads];
-
+        long end = numReal / this.threads;
+        //Divisor divisor = new Divisor(numReal);
         for (int i = 0; i < this.threads; i++)
         {
-            if (i == this.threads-1)
+            if (i == this.threads - 1)
             {
-                end = this.numero;
+                end = numReal;
             }
-            Divisor divisor = new Divisor(this.numero, start, end);
-            this.trs[i] = new Thread(new ThreadStart(divisor.getDivisorsPost));
-            //Console.WriteLine("start: " + start + "end: " + end );
+            this.trs[i] = new Thread(numOfPosDivisors);
+            listdates[i, 0] = start;
+            listdates[i, 1] = end;
             start = end + 1;
-            end = (start + (this.numero/this.threads)-1);
-        }
+            end = (start + (numReal / this.threads) - 1);
 
+        }
+        int numThread = 0;
         foreach (var x in this.trs)
         {
-            x.Start();
-        } 
+            x.Start(numThread);
+            numThread += 1;
+        }
+        foreach (var x in this.trs)
+        {
+            x.Join();
+        }
+    }
+    public long getDivisores()
+    {
+        return this.divisors;
+    }
+    public bool isPrime()
+    {
+        if (divisors == 2)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void numOfPosDivisors( long from, long to) {
+        int inc = 1;
+        if (this.numero % 2 == 1) { // Num is odd
+            inc = 2;
+            if (from % 2 == 0) { // From is even 
+                from++;
+            }
+        }
+        for (long k = from; k <= to; k += inc) {
+            if (this.numero % k == 0) {
+                this.divisors++;
+            }
+        }
+        
+    }
+    public void numOfPosDivisors(object date) {
+        long from = listdates[(int)date, 0];
+        long to = listdates[(int)date, 1];
+        //Console.WriteLine("Object: {0}, from: {1}, to: {2}, numero: {3}", (int)date, from, to, this.numero);
+        numOfPosDivisors( from, to);
     }
 }
