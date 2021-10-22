@@ -1,6 +1,7 @@
 using System;
 public class Divisor
 {
+
     long numero;
     long divisors;
 
@@ -8,7 +9,6 @@ public class Divisor
     {
         this.numero = num;
         divisors = 2;
-        //Console.WriteLine("--" + numero);
     }
     public bool isPrime()
     {
@@ -37,18 +37,18 @@ public class Divisor
                 from++;
             }
         }
-        for (long k = from; k <= to; k += inc)
+        for (long k = from; k <= to && this.divisors <= 2; k += inc)
         {
             if (this.numero % k == 0)
             {
-                //Console.WriteLine(k);
+                Console.WriteLine("--" + k);
                 this.divisors++;
             }
         }
     }
-    public void numOfPosDivisors(object num)
+    public void numOfPosDivisors(long num)
     {
-        long numero = (long) num;
+        long numero = num;
         long[] dates = {2, numero/2}; 
         this.numOfPosDivisors(dates);
         //this.divisors += 2;

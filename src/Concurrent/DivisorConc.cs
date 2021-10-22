@@ -9,9 +9,6 @@ public class DivisorConc
     int divisors;
 
     long[,] listdates;
-
-
-
     public DivisorConc(long numero, int threads)
     {
         this.numero = numero;
@@ -26,7 +23,6 @@ public class DivisorConc
         long numReal = this.numero /2;
         long start = 2;
         long end = numReal / this.threads;
-        //Divisor divisor = new Divisor(numReal);
         for (int i = 0; i < this.threads; i++)
         {
             if (i == this.threads - 1)
@@ -71,8 +67,9 @@ public class DivisorConc
                 from++;
             }
         }
-        for (long k = from; k <= to; k += inc) {
+        for (long k = from; k <= to && this.divisors <= 2; k += inc) {
             if (this.numero % k == 0) {
+                Console.WriteLine("--" + k);
                 this.divisors++;
             }
         }
@@ -82,6 +79,6 @@ public class DivisorConc
         long from = listdates[(int)date, 0];
         long to = listdates[(int)date, 1];
         //Console.WriteLine("Object: {0}, from: {1}, to: {2}, numero: {3}", (int)date, from, to, this.numero);
-        numOfPosDivisors( from, to);
+        numOfPosDivisors(from, to);
     }
 }
