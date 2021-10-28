@@ -3,33 +3,40 @@ public class Divisor
 {
 
     long numero;
-    long divisors;
+    int divisors;
 
-    public Divisor(long num)
+    long ini;
+    long end;
+
+    bool isPrime;
+
+    public Divisor(long num, long ini, long end)
     {
         this.numero = num;
-        divisors = 2;
+        this.ini = ini;
+        this.end = end;
+        this.divisors = 2;
+        this.isPrime = true;
     }
-    public bool isPrime()
+    public bool getIsPrime()
     {
-        if (divisors == 2)
+        if (this.divisors != 2)
         {
-            return true;
+            this.isPrime = false;
+            return this.isPrime;
         }
-        return false;
+        return this.isPrime;
     }
-    public long getDivisores()
+    public int getDivisores()
     {
         return divisors;
     }
-    public void numOfPosDivisors(long[] dates)
+    public void numOfPosDivisors()
     {
-        long from = dates[0];
-        long to = dates[1];
-        Console.WriteLine(from + " , "+ to);
+        long from = this.ini;
+        long to = this.end;
+        //Console.WriteLine(from + " , "+ to);
         int inc = 1;
-        //long count = 0;
-
         if (this.numero % 2 == 1)
         { // Num is odd
             inc = 2;
@@ -45,10 +52,5 @@ public class Divisor
                 this.divisors++;
             }
         }
-    }
-    public void numOfPosDivisors()
-    {
-        long[] dates = { 2, this.numero / 2 };
-        this.numOfPosDivisors(dates);
     }
 }
