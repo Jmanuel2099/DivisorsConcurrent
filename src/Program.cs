@@ -8,7 +8,10 @@ namespace Demo_Divisores
     {
         static void Main(string[] args)
         {
-            long num = 19_876_543_937L;
+            long num = 2; // par que pirmo
+            //long num = 19_876_543_934L; // par que no es primo
+            //long num = 19_876_543_935L; // impar que no es primo
+            //long num = 19_876_543_937L; //impar que es primo
             int threads = 2;
 
             Console.WriteLine("Number: " + num);
@@ -16,7 +19,7 @@ namespace Demo_Divisores
             Stopwatch mainTime = new Stopwatch();//obj to take the time no concurrent
             mainTime.Start();
             Divisor divisor = new Divisor(num);
-            divisor.numOfPosDivisors(num);
+            divisor.numOfPosDivisors();
             Console.WriteLine("divs: " + divisor.getDivisores());
             Console.WriteLine("Is Prime: " + divisor.isPrime());
             mainTime.Stop();
@@ -28,6 +31,7 @@ namespace Demo_Divisores
             DivisorConc divisorConc = new DivisorConc(num, threads);
             divisorConc.startProccesConcurrent();
             Console.WriteLine("divs: " + divisorConc.getDivisores());
+            Console.WriteLine(divisorConc.getListadates());
             Console.WriteLine("Is Prime: " + divisorConc.isPrime());
             concurretTime.Stop();
             Console.WriteLine($"Time: {concurretTime.Elapsed.TotalSeconds} s");

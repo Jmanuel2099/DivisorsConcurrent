@@ -26,6 +26,7 @@ public class Divisor
     {
         long from = dates[0];
         long to = dates[1];
+        Console.WriteLine(from + " , "+ to);
         int inc = 1;
         //long count = 0;
 
@@ -41,16 +42,13 @@ public class Divisor
         {
             if (this.numero % k == 0)
             {
-                Console.WriteLine("--" + k);
                 this.divisors++;
             }
         }
     }
-    public void numOfPosDivisors(long num)
+    public void numOfPosDivisors()
     {
-        long numero = num;
-        long[] dates = {2, numero/2}; 
+        long[] dates = { 2, this.numero / 2 };
         this.numOfPosDivisors(dates);
-        //this.divisors += 2;
     }
 }
